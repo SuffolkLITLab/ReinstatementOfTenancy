@@ -1,0 +1,204 @@
+comment: |
+  The metadata section controls the tab title and saved interview title. You can delete this section if you include this YAML file in another YAML file.
+metadata:
+  title: |
+    Reinstatement of tenancy
+  short title: |
+    Reinstatement of tenancy
+---
+comment: |
+  This section is used by MAVirtualCourts to control how some of the questions work.
+mandatory: True
+code: |
+  interview_metadata # make sure we initialize the object
+  if not defined("interview_metadata['Reinstatement_of_tenancy']"):
+    interview_metadata.initializeObject('Reinstatement_of_tenancy')
+  interview_metadata['Reinstatement_of_tenancy'].update({
+    'title': 'Reinstatement of tenancy',
+    'short title': 'Reinstatement of tenancy',
+    'description': 'Reinstatement of tenancy',
+    'original_form': '',
+    'allowed courts': [
+      'Housing Court',
+    ],
+    'categories': [
+      'Housing',
+    ],
+    'logic block variable': 'Reinstatement_of_tenancy',
+    'attachment block variable': 'Reinstatement_of_tenancy_attachment',
+    'typical role': 'defendant',
+  })
+---
+include:
+  - docassemble.MAVirtualCourt:basic-questions.yml
+---
+features:
+  navigation: True
+---
+sections:
+  - review_Reinstatement_of_tenancy: Review your answers
+---
+id: interview_order_Reinstatement_of_tenancy
+code: |
+  # This is a placeholder to control logic flow in this interview
+  basic_questions_intro_screen
+  Reinstatement_of_tenancy_intro
+  # Set the allowed courts for this interview
+  allowed_courts = interview_metadata["Reinstatement_of_tenancy"]["allowed courts"]
+  nav.set_section('review_Reinstatement_of_tenancy')
+  user_role = 'defendant'
+  LALALALA
+  Screen_two
+  users[0].address.address
+  courts[0]
+  users[0]
+  signature_date
+  str(defendants)
+  str(plaintiffs)
+  users[0].phone_number
+  users[0].email
+  Reinstatement_of_tenancy_preview_question # Pre-canned preview screen
+  basic_questions_signature_flow
+  users[0].signature
+  Reinstatement_of_tenancy = True
+---
+comment: |
+  This question is used to introduce your interview. Please customize
+id: Reinstatement of tenancy
+continue button field: Reinstatement_of_tenancy_intro
+question: |
+  Reinstatement of tenancy
+subquestion: |
+  Reinstatement of tenancy
+---
+id: Placeholder preview screen
+continue button field: Reinstatement_of_tenancy_preview_question
+question: |
+  Placeholder preview screen
+subquestion: |
+  Here is a preview of the form you'll sign on the next page.
+   ${Reinstatement_of_tenancy_attachment['preview']}
+---
+id: LALALALA
+continue button field: LALALALA
+question: |
+  LALALALA
+subquestion: |
+  HELLO MY NAME IS TRACY
+fields:
+  - 'Docket number': docket_numbers
+    datatype: number
+---
+id: Screen two
+continue button field: Screen_two
+question: |
+  Screen two
+subquestion: |
+  Placeholder text
+fields:
+  - 'Bananas': bananas
+    datatype: yesno
+  - 'Grapes': grapes
+    datatype: yesno
+  - 'Pears': pears
+    datatype: yesno
+  - 'Rent month': rent_month
+  - 'Dismissal reasons': dismissal_reasons
+  - 'Appless': appless
+    datatype: yesno
+---
+progress: 100
+mandatory: True
+id: Placeholder download screen
+question: |
+  Placeholder download screen
+subquestion: |
+  Placeholder
+  ### Next steps
+  1. Step 1
+  1. Step 2
+  Below is a preview of your form.
+  ${Reinstatement_of_tenancy_attachment['final'] }
+need: Reinstatement_of_tenancy
+attachment code: Reinstatement_of_tenancy_attachment['final']
+---
+objects:
+  - Reinstatement_of_tenancy_attachment: DADict
+---
+attachment:
+    variable name: Reinstatement_of_tenancy_attachment[i]
+    name: Reinstatement of tenancy
+    filename: Reinstatement_of_tenancy
+    docx template file: R-Reinstatement_of_tenancy.docx
+---
+id: Reinstatement_of_tenancy review screen
+event: review_Reinstatement_of_tenancy
+question: |
+  Placeholder Review Screen
+subquestion: |
+  Edit your answers below
+review:
+  - Edit: bananas
+    button: |
+      Bananas:
+      ${ word(yesno(bananas)) }
+  - Edit: grapes
+    button: |
+      Grapes:
+      ${ word(yesno(grapes)) }
+  - Edit: pears
+    button: |
+      Pears:
+      ${ word(yesno(pears)) }
+  - Edit: docket_numbers
+    button: |
+      Docket number:
+      ${ docket_numbers }
+  - Edit: rent_month
+    button: |
+      Rent month:
+      ${ rent_month }
+  - Edit: dismissal_reasons
+    button: |
+      Dismissal reasons:
+      ${ dismissal_reasons }
+  - Edit: appless
+    button: |
+      Appless:
+      ${ word(yesno(appless)) }
+  - Edit: users[0].address.address
+    button: |
+      users[0].address.address:
+      ${ users[0].address.address }
+  - Edit: users[0].signature
+    button: |
+      users[0].signature:
+      ${ users[0].signature }
+  - Edit: courts[0].name.first
+    button: |
+      courts[0]:
+      ${ courts[0] }
+  - Edit: users[0].name.first
+    button: |
+      users[0]:
+      ${ users[0] }
+  - Edit: signature_date
+    button: |
+      signature_date:
+      ${ signature_date }
+  - Edit: defendants[0].name.first
+    button: |
+      defendants:
+      ${ defendants }
+  - Edit: plaintiffs[0].name.first
+    button: |
+      plaintiffs:
+      ${ plaintiffs }
+  - Edit: users[0].phone_number
+    button: |
+      users[0].phone_number:
+      ${ users[0].phone_number }
+  - Edit: users[0].email
+    button: |
+      users[0].email:
+      ${ users[0].email }
